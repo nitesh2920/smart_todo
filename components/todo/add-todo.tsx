@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Todo } from "@/types";
+import { Todo, PaginatedResponse } from "@/types";
 
 interface AddTodoProps {
     currentPage: number;
@@ -20,16 +20,21 @@ export function AddTodo({ currentPage }: AddTodoProps) {
         if (!title.trim()) return;
 
         const newTodo: Todo = {
-            userId: 1, // Default mock user ID
-            id: Date.now(), // Local temporary ID
+            userId: 1,
+            id: Date.now(),
             title: title.trim(),
             completed: false,
         };
 
-        // Optimistically update the cache for the current page
-        queryClient.setQueryData(["todos", currentPage], (oldTodos: Todo[] | undefined) => {
-            if (!oldTodos) return [newTodo];
-            return [newTodo, ...oldTodos]; // Add to beginning of list
+
+        queryClient.setQueryData(["todos", currentPage], (oldData: PaginatedResponse<Todo> | undefined) => {
+            if (!oldData) return { data: [newTodo], totalCount: 1 };
+
+            return {
+                ...oldData,
+                data: [newTodo, ...oldData.data],
+                totalCount: oldData.totalCount + 1
+            };
         });
 
         setTitle("");

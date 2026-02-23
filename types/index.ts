@@ -4,3 +4,8 @@ export interface Todo {
   title: string;
   completed: boolean;
 }
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  totalCount: number;
+}

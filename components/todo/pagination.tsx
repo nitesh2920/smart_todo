@@ -8,13 +8,15 @@ interface PaginationProps {
     onPageChange: (page: number) => void;
     isLoading: boolean;
     isPlaceholderData: boolean;
+    hasMore: boolean;
 }
 
 export function Pagination({
     currentPage,
     onPageChange,
     isLoading,
-    isPlaceholderData
+    isPlaceholderData,
+    hasMore
 }: PaginationProps) {
     return (
         <div className="flex items-center justify-between py-6">
@@ -38,7 +40,7 @@ export function Pagination({
                     variant="default"
                     size="sm"
                     onClick={() => onPageChange(currentPage + 1)}
-                    disabled={isLoading || isPlaceholderData}
+                    disabled={isLoading || isPlaceholderData || !hasMore}
                     className="w-[100px]"
                 >
                     Next

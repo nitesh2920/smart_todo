@@ -3,7 +3,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Check, Square } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Todo } from "@/types";
+import { Todo, PaginatedResponse } from "@/types";
 
 interface TodoItemProps {
     todo: Todo;
@@ -14,12 +14,15 @@ export function TodoItem({ todo, currentPage }: TodoItemProps) {
     const queryClient = useQueryClient();
 
     const toggleCompleted = () => {
-        queryClient.setQueryData(["todos", currentPage], (oldTodos: Todo[] | undefined) => {
-            if (!oldTodos) return [];
+        queryClient.setQueryData(["todos", currentPage], (oldData: { data: Todo[], totalCount: number } | undefined) => {
+            if (!oldData) return undefined;
 
-            return oldTodos.map((t) =>
-                t.id === todo.id ? { ...t, completed: !t.completed } : t
-            );
+            return {
+                ...oldData,
+                data: oldData.data.map((t) =>
+                    t.id === todo.id ? { ...t, completed: !t.completed } : t
+                )
+            };
         });
     };
 
