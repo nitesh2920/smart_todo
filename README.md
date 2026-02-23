@@ -17,18 +17,24 @@ A modern, responsive Todo application built with Next.js App Router, Tailwind CS
 
 ## Getting Started
 
-First, ensure you have Node.js installed on your machine.
+First, ensure you have Node.js and Git installed on your machine.
 
-1. **Install Dependencies**
+1. **Clone the Repository and Navigate**
+   ```bash
+   git clone https://github.com/nitesh2920/smart_todo.git
+   cd smart_todo
+   ```
+
+2. **Install Dependencies**
    ```bash
    npm install
    ```
 
-2. **Start the Development Server**
+3. **Start the Development Server**
    ```bash
    npm run dev
    ```
 
-3. **Open the Application**
+4. **Open the Application**
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
