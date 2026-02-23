@@ -22,7 +22,7 @@ export default function Home() {
   const { data: responseData, isLoading, isError, error, isPlaceholderData } = useQuery({
     queryKey: ["todos", page],
     queryFn: () => fetchTodos(page, limit),
-    placeholderData: (previousData) => previousData, // Keeps previous data during fetch
+    placeholderData: (previousData) => previousData,
   });
 
   const todos = responseData?.data;
@@ -44,7 +44,7 @@ export default function Home() {
 
             <div className="space-y-3 mt-6">
               {isLoading ? (
-                // Loading skeletons
+                
                 Array.from({ length: 5 }).map((_, i) => (
                   <Skeleton key={i} className="h-[74px] w-full rounded-lg" />
                 ))
